@@ -343,7 +343,7 @@
             wordsList.innerHTML = '';
             words.forEach(word => {
                 const link = document.createElement('a');
-                link.href = `https://www.frdic.com/dicts/fr/${encodeURIComponent(word)}`;
+                link.href = `https://www.frdic.com/dicts/fr${encodeURIComponent(word)}`;
                 link.target = '_blank';
                 link.className = 'word-item';
                 link.textContent = word;
