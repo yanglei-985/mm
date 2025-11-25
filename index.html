@@ -252,7 +252,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>法文 磊磊单词统计工具</h1>
+        <h1>英语 磊磊单词统计工具</h1>
         <p class="subtitle">记录你的学习进度，点击单词查词典</p>
 
         <div class="input-section">
@@ -343,7 +343,7 @@
             wordsList.innerHTML = '';
             words.forEach(word => {
                 const link = document.createElement('a');
-                link.href = `https://www.frdic.com/dicts/fr${encodeURIComponent(word)}`;
+                link.href = `https://dict.eudic.net/dicts/en/${encodeURIComponent(word)}`;
                 link.target = '_blank';
                 link.className = 'word-item';
                 link.textContent = word;
@@ -405,3 +405,5 @@
     </script>
 </body>
 </html>
+
+
