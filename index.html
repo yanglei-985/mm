@@ -1,0 +1,424 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="zh-CN"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;单词统计工具——磊磊&lt;/title&gt;</p>
+<p class="p2"><br></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-sizing: border-box;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 900px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.subtitle {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.input-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textarea {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 200px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #e0e0e0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>resize: vertical;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: border-color 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textarea:focus {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-color: #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stats-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-number {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.5em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.stat-label {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.3em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 2px solid #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-list {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 400px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #fafafa;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-list::-webkit-scrollbar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-list::-webkit-scrollbar-track {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f1f1f1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-list::-webkit-scrollbar-thumb {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.words-list::-webkit-scrollbar-thumb:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #5568d3;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.word-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f5f5f5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.95em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.word-item:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.example-section {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #f9f9f9;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.example-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.1em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #667eea;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.example-text {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-style: italic;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.clear-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px auto 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ff6b6b;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.clear-btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #ee5a52;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-player {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-title {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: bold;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-controls {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(255, 255, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>backdrop-filter: blur(10px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-btn:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255, 255, 255, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-frame {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 500px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #000;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.music-info {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.9;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;法文x 磊磊单词统计工具&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="subtitle"&gt;记录你的学习进度，点击单词查词典&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="input-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;textarea id="textInput" placeholder="在这里输入或粘贴你学过的单词...&amp;#10;&amp;#10;可以输入句子、段落或单词列表，系统会自动统计独立单词数量。"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="stats-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number" id="totalWords"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;总单词数&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number" id="uniqueWords"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;不重复单词&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="stat-card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-number" id="charCount"&gt;0&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="stat-label"&gt;字符数&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="words-section" id="wordsSection" style="display: none;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="section-title"&gt;📖 单词列表（点击查词典）&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="words-list" id="wordsList"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button class="clear-btn" onclick="clearText()"&gt;清除内容&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="example-section"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="example-title"&gt;💡 示例文本（点击下方使用）&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="example-text" style="cursor: pointer; margin-top: 10px; padding: 10px; background: white; border-radius: 5px;" onclick="useExample()"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>"An investment in knowledge always pays the best interests."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="music-player"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="music-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="music-title"&gt;🎵 磊磊喜欢的音乐&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="music-controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="music-btn" onclick="playRandomMusic()"&gt;🔀播放&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button class="music-btn" onclick="toggleMusic()"&gt;⏯️ 显示/隐藏&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;iframe id="musicFrame" class="music-frame" src="" allowfullscreen&gt;&lt;/iframe&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="music-info"&gt;💡 点击"播放"按钮切换音乐&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const textInput = document.getElementById('textInput');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const totalWordsEl = document.getElementById('totalWords');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const uniqueWordsEl = document.getElementById('uniqueWords');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const charCountEl = document.getElementById('charCount');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const wordsSection = document.getElementById('wordsSection');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const wordsList = document.getElementById('wordsList');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>textInput.addEventListener('input', updateStats);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateStats() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = textInput.value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const charCount = text.length;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 提取单词（只保留字母）</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const words = text.toLowerCase()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>.match(/[a-z]+/g) || [];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const totalWords = words.length;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 获取不重复单词</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const uniqueWordsSet = new Set(words);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const uniqueWords = uniqueWordsSet.size;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 更新统计</p>
+<p class="p1"><span class="Apple-converted-space">            </span>totalWordsEl.textContent = totalWords;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>uniqueWordsEl.textContent = uniqueWords;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>charCountEl.textContent = charCount;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 显示单词列表</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (uniqueWords &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>wordsSection.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>displayWords(Array.from(uniqueWordsSet).sort());</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>wordsSection.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function displayWords(words) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>wordsList.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>words.forEach(word =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const link = document.createElement('a');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>link.href = `https://www.frdic.com/dicts/fr/${encodeURIComponent(word)}`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>link.target = '_blank';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>link.className = 'word-item';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>link.textContent = word;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>wordsList.appendChild(link);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function clearText() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>textInput.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateStats();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function useExample() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>textInput.value = 'The quick brown fox jumps over the lazy dog. Learning English vocabulary is essential for communication. Practice makes perfect, and consistency is key to mastering new words.';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateStats();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 初始化</p>
+<p class="p1"><span class="Apple-converted-space">        </span>updateStats();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 音乐播放功能</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const musicList = [</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'BV1MT411p7pn',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'BV1XS4y1D7s1',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'BV1Hs4y187YP',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'BV12E411p7fa'</p>
+<p class="p1"><span class="Apple-converted-space">        </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const musicFrame = document.getElementById('musicFrame');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let currentMusicIndex = -1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function playRandomMusic() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let newIndex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>do {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>newIndex = Math.floor(Math.random() * musicList.length);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} while (newIndex === currentMusicIndex &amp;&amp; musicList.length &gt; 1);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentMusicIndex = newIndex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const bvid = musicList[currentMusicIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// 使用https协议，添加更多参数确保播放</p>
+<p class="p1"><span class="Apple-converted-space">            </span>musicFrame.src = `https://player.bilibili.com/player.html?bvid=${bvid}&amp;page=1&amp;as_wide=1&amp;high_quality=1&amp;danmaku=0`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>musicFrame.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function toggleMusic() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (musicFrame.style.display === 'none') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>musicFrame.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>musicFrame.style.display = 'none';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// 页面加载后等待一下再播放</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('load', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>playRandomMusic();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}, 500);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+<p class="p2"><br></p>
+</body>
+</html>
