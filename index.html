@@ -3,407 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>单词统计工具——磊磊</title>
-
-
+    <title>法语单词统计工具</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-
+        
         .container {
             max-width: 900px;
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             padding: 40px;
         }
-
+        
         h1 {
-            color: #333;
+            color: #667eea;
             text-align: center;
             margin-bottom: 10px;
             font-size: 2.5em;
         }
-
+        
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
-            font-size: 1.1em;
+            font-size: 0.9em;
         }
-
-        .input-section {
-            margin-bottom: 30px;
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 200px;
-            padding: 20px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 16px;
-            resize: vertical;
-            transition: border-color 0.3s;
-            font-family: inherit;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .stats-section {
+        
+        .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
+            gap: 15px;
             margin-bottom: 30px;
         }
-
-        .stat-card {
+        
+        .stat-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 20px;
             border-radius: 15px;
             text-align: center;
-            color: white;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
         }
-
+        
         .stat-number {
-            font-size: 2.5em;
+            font-size: 2em;
             font-weight: bold;
             margin-bottom: 5px;
         }
-
+        
         .stat-label {
             font-size: 0.9em;
             opacity: 0.9;
         }
-
-        .words-section {
+        
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .word-list {
             margin-top: 30px;
         }
-
-        .section-title {
-            font-size: 1.3em;
-            color: #333;
+        
+        .word-list h2 {
+            color: #667eea;
             margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .words-list {
+        
+        .words {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
             max-height: 400px;
             overflow-y: auto;
-            padding: 10px;
-            background: #fafafa;
-            border-radius: 10px;
         }
-
-        .words-list::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .words-list::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 10px;
-        }
-
-        .words-list::-webkit-scrollbar-thumb {
-            background: #667eea;
-            border-radius: 10px;
-        }
-
-        .words-list::-webkit-scrollbar-thumb:hover {
-            background: #5568d3;
-        }
-
-        .word-item {
-            display: inline-block;
-            padding: 8px 16px;
-            background: #f5f5f5;
+        
+        .word-tag {
+            background: white;
+            padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s;
-            text-decoration: none;
-            color: #333;
+            border: 2px solid #e0e0e0;
             font-size: 0.95em;
         }
-
-        .word-item:hover {
+        
+        .word-tag:hover {
             background: #667eea;
             color: white;
+            border-color: #667eea;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
-
-        .example-section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f9f9f9;
+        
+        .buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
             border-radius: 10px;
-            border-left: 4px solid #667eea;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
         }
-
-        .example-title {
-            font-size: 1.1em;
-            color: #667eea;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .example-text {
-            color: #666;
-            line-height: 1.6;
-            font-style: italic;
-        }
-
-        .clear-btn {
-            display: block;
-            margin: 20px auto 0;
-            padding: 12px 30px;
+        
+        .btn-clear {
             background: #ff6b6b;
             color: white;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
         }
-
-        .clear-btn:hover {
+        
+        .btn-clear:hover {
             background: #ee5a52;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
         }
-
-        .music-player {
+        
+        .examples {
             margin-top: 30px;
             padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            background: #f8f9fa;
+            border-radius: 10px;
         }
-
-        .music-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        .examples h3 {
+            color: #667eea;
             margin-bottom: 15px;
         }
-
-        .music-title {
-            color: white;
-            font-size: 1.2em;
-            font-weight: bold;
+        
+        .example-btn {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            margin: 5px;
         }
-
+        
+        .example-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .music-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            color: white;
+        }
+        
+        .music-section h3 {
+            margin-bottom: 15px;
+        }
+        
         .music-controls {
             display: flex;
             gap: 10px;
+            flex-wrap: wrap;
         }
-
-        .music-btn {
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9em;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
+        
+        .btn-music {
+            background: white;
+            color: #f5576c;
         }
-
-        .music-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
+        
+        .btn-music:hover {
+            background: rgba(255,255,255,0.9);
         }
-
-        .music-frame {
+        
+        audio {
             width: 100%;
-            height: 500px;
-            border: none;
+            margin-top: 15px;
             border-radius: 10px;
-            background: #000;
+            display: none;
+        }
+        
+        audio.show {
+            display: block;
         }
 
-        .music-info {
-            margin-top: 10px;
-            color: white;
-            font-size: 0.9em;
-            opacity: 0.9;
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 40px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>法语 磊磊单词统计工具</h1>
+        <h1>📚 法语单词统计工具</h1>
         <p class="subtitle">记录你的学习进度，点击单词查词典</p>
-
-        <div class="input-section">
-            <textarea id="textInput" placeholder="在这里输入或粘贴你学过的单词...&#10;&#10;可以输入句子、段落或单词列表，系统会自动统计独立单词数量。"></textarea>
-        </div>
-
-        <div class="stats-section">
-            <div class="stat-card">
+        
+        <div class="stats">
+            <div class="stat-box">
                 <div class="stat-number" id="totalWords">0</div>
                 <div class="stat-label">总单词数</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-box">
                 <div class="stat-number" id="uniqueWords">0</div>
                 <div class="stat-label">不重复单词</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-box">
                 <div class="stat-number" id="charCount">0</div>
                 <div class="stat-label">字符数</div>
             </div>
         </div>
-
-        <div class="words-section" id="wordsSection" style="display: none;">
-            <div class="section-title">📖 单词列表（点击查词典）</div>
-            <div class="words-list" id="wordsList"></div>
-        </div>
-
-        <button class="clear-btn" onclick="clearText()">清除内容</button>
-
-        <div class="example-section">
-            <div class="example-title">💡 示例文本（点击下方使用）</div>
-            <div class="example-text" style="cursor: pointer; margin-top: 10px; padding: 10px; background: white; border-radius: 5px;" onclick="useExample()">
-                "An investment in knowledge always pays the best interests."
+        
+        <textarea id="textInput" placeholder="请输入法语文本..."></textarea>
+        
+        <div class="word-list">
+            <h2>📖 单词列表（点击查词典）</h2>
+            <div class="words" id="wordList">
+                <div class="empty-state">在上方输入文本后，单词将显示在这里</div>
             </div>
         </div>
-
-        <div class="music-player">
-            <div class="music-header">
-                <div class="music-title">🎵 磊磊喜欢的音乐</div>
-                <div class="music-controls">
-                    <button class="music-btn" onclick="playRandomMusic()">🔀播放</button>
-                    <button class="music-btn" onclick="toggleMusic()">⏯️ 显示/隐藏</button>
-                </div>
+        
+        <div class="buttons">
+            <button class="btn-clear" onclick="clearText()">清除内容</button>
+        </div>
+        
+        <div class="examples">
+            <h3>句子</h3>
+            <button class="example-btn" onclick="useExample(0)">
+                "La science sans conscience n'est que ruine de l'âme."
+            </button>
+            <button class="example-btn" onclick="useExample(1)">
+                "Le courant électrique se mesure en ampères."
+            </button>
+            <button class="example-btn" onclick="useExample(2)">
+                "C'est à Noël que nous fêtons la naissance de Jésus-Christ."
+            </button>
+        </div>
+        
+        <div class="music-section">
+            <h3>🎵 磊磊喜欢的音乐</h3>
+            <div class="music-controls">
+                <button class="btn-music" onclick="shuffleMusic()">🔀 播放</button>
+                <button class="btn-music" onclick="toggleAudio()">⏯️ 显示/隐藏</button>
             </div>
-            <iframe id="musicFrame" class="music-frame" src="" allowfullscreen></iframe>
-            <div class="music-info">💡 点击"播放"按钮切换音乐</div>
+            <p style="margin-top: 10px; font-size: 0.9em;">💡 点击"播放"按钮切换音乐</p>
+            <audio id="musicPlayer" controls>
+                <source src="" type="audio/mpeg">
+            </audio>
         </div>
     </div>
 
     <script>
+        const examples = [
+            "La science sans conscience n'est que ruine de l'âme.",
+            "Le courant électrique se mesure en ampères.",
+            "C'est à Noël que nous fêtons la naissance de Jésus-Christ."
+        ];
+        
+        const musicList = [
+            'https://music.example.com/song1.mp3',
+            'https://music.example.com/song2.mp3',
+            'https://music.example.com/song3.mp3'
+        ];
+        
+        let currentMusicIndex = 0;
+        
         const textInput = document.getElementById('textInput');
         const totalWordsEl = document.getElementById('totalWords');
         const uniqueWordsEl = document.getElementById('uniqueWords');
         const charCountEl = document.getElementById('charCount');
-        const wordsSection = document.getElementById('wordsSection');
-        const wordsList = document.getElementById('wordsList');
-
+        const wordListEl = document.getElementById('wordList');
+        const musicPlayer = document.getElementById('musicPlayer');
+        
         textInput.addEventListener('input', updateStats);
-
+        
         function updateStats() {
             const text = textInput.value;
             const charCount = text.length;
             
-            // 提取单词（只保留字母）
-            const words = text.toLowerCase()
-                .match(/[a-z]+/g) || [];
-            
+            // 改进的正则表达式，支持法语特殊字符
+            // 匹配包含字母（含重音符号）、连字符和撇号的单词
+            const wordRegex = /[a-zA-ZàâäæçéèêëïîôùûüÿœÀÂÄÆÇÉÈÊËÏÎÔÙÛÜŸŒ]+(?:[-'][a-zA-ZàâäæçéèêëïîôùûüÿœÀÂÄÆÇÉÈÊËÏÎÔÙÛÜŸŒ]+)*/g;
+            const words = text.match(wordRegex) || [];
             const totalWords = words.length;
             
-            // 获取不重复单词
-            const uniqueWordsSet = new Set(words);
+            // 转换为小写以计算唯一单词
+            const uniqueWordsSet = new Set(words.map(w => w.toLowerCase()));
             const uniqueWords = uniqueWordsSet.size;
             
-            // 更新统计
             totalWordsEl.textContent = totalWords;
             uniqueWordsEl.textContent = uniqueWords;
             charCountEl.textContent = charCount;
             
-            // 显示单词列表
-            if (uniqueWords > 0) {
-                wordsSection.style.display = 'block';
-                displayWords(Array.from(uniqueWordsSet).sort());
-            } else {
-                wordsSection.style.display = 'none';
-            }
+            displayWords(Array.from(uniqueWordsSet).sort());
         }
-
+        
         function displayWords(words) {
-            wordsList.innerHTML = '';
-            words.forEach(word => {
-                const link = document.createElement('a');
-                link.href = `https://www.frdic.com/dicts/fr/${encodeURIComponent(word)}`;
-                link.target = '_blank';
-                link.className = 'word-item';
-                link.textContent = word;
-                wordsList.appendChild(link);
-            });
+            if (words.length === 0) {
+                wordListEl.innerHTML = '<div class="empty-state">在上方输入文本后，单词将显示在这里</div>';
+                return;
+            }
+            
+            wordListEl.innerHTML = words.map(word => 
+                `<span class="word-tag" onclick="lookupWord('${word}')">${word}</span>`
+            ).join('');
         }
-
+        
+        function lookupWord(word) {
+            const url = `https://www.frdic.com/dicts/fr/${encodeURIComponent(word)}`;
+            window.open(url, '_blank');
+        }
+        
         function clearText() {
             textInput.value = '';
             updateStats();
         }
-
-        function useExample() {
-            textInput.value = 'The quick brown fox jumps over the lazy dog. Learning English vocabulary is essential for communication. Practice makes perfect, and consistency is key to mastering new words.';
+        
+        function useExample(index) {
+            textInput.value = examples[index];
             updateStats();
         }
-
+        
+        function shuffleMusic() {
+            currentMusicIndex = (currentMusicIndex + 1) % musicList.length;
+            musicPlayer.src = musicList[currentMusicIndex];
+            musicPlayer.play();
+        }
+        
+        function toggleAudio() {
+            musicPlayer.classList.toggle('show');
+        }
+        
         // 初始化
         updateStats();
-
-        // 音乐播放功能
-        const musicList = [
-            'BV1MT411p7pn',
-            'BV1XS4y1D7s1',
-            'BV1Hs4y187YP',
-            'BV12E411p7fa'
-        ];
-
-        const musicFrame = document.getElementById('musicFrame');
-        let currentMusicIndex = -1;
-
-        function playRandomMusic() {
-            let newIndex;
-            do {
-                newIndex = Math.floor(Math.random() * musicList.length);
-            } while (newIndex === currentMusicIndex && musicList.length > 1);
-            
-            currentMusicIndex = newIndex;
-            const bvid = musicList[currentMusicIndex];
-            // 使用https协议，添加更多参数确保播放
-            musicFrame.src = `https://player.bilibili.com/player.html?bvid=${bvid}&page=1&as_wide=1&high_quality=1&danmaku=0`;
-            musicFrame.style.display = 'block';
-        }
-
-        function toggleMusic() {
-            if (musicFrame.style.display === 'none') {
-                musicFrame.style.display = 'block';
-            } else {
-                musicFrame.style.display = 'none';
-            }
-        }
-
-        // 页面加载后等待一下再播放
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                playRandomMusic();
-            }, 500);
-        });
     </script>
 </body>
 </html>
-
-
